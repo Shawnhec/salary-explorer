@@ -1,65 +1,62 @@
-# Web Development Project 5 - *Salary Explorer*
+# Web Development Project 6 - *Salary Explorer*
 
 Submitted by: **Shawn**
 
-This web app: **Salary Explorer is a dashboard of U.S. salary data for 1,008 occupations, fetched from the PayCrunch API. It shows summary statistics at a glance and lets you search and filter the list by occupation, top-paying state, data type (BLS figure vs. PayCrunch estimate), and median salary range.**
+This web app: **Salary Explorer is a dashboard of U.S. salary data for 1,008 occupations, fetched from the PayCrunch API. The dashboard shows summary statistics, two charts, and a searchable, filterable list of occupations. Each occupation links to its own detail page with percentile wages, top-end pay, a career step-up, core tasks, and hot technologies.**
 
-Time spent: **16** hours spent in total
+Time spent: **10** hours spent in total
 
 ## Required Features
 
 The following **required** functionality is completed:
 
-- [x] **The site has a dashboard displaying a list of data fetched using an API call**
-  - The dashboard should display at least 10 unique items, one per row
-  - The dashboard includes at least two features in each row
-- [x] **`useEffect` React hook and `async`/`await` are used**
-- [x] **The app dashboard includes at least three summary statistics about the data** 
-  - The app dashboard includes at least three summary statistics about the data, such as:
-    - **Occupations Shown**: count of occupations matching the current search and filters
-    - **Average Median Salary**: mean of the median salaries of the shown occupations
-    - **Median Salary Range**: lowest and highest median salary among the shown occupations
-    - **PayCrunch Estimates**: percentage of shown occupations whose figures are PayCrunch estimates rather than BLS data
-- [x] **A search bar allows the user to search for an item in the fetched data**
-  - The search bar **correctly** filters items in the list, only displaying items matching the search query
-  - The list of results dynamically updates as the user types into the search bar
-- [x] **An additional filter allows the user to restrict displayed items by specified categories**
-  - The filter restricts items in the list using a **different attribute** than the search bar 
-  - The filter **correctly** filters items in the list, only displaying items matching the filter attribute in the dashboard
-  - The dashboard list dynamically updates as the user adjusts the filter
+- [x] **Clicking on an item in the list view displays more details about it**
+  - Clicking on an item in the dashboard list navigates to a detail view for that item
+  - Detail view includes extra information about the item not included in the dashboard view
+  - The same sidebar is displayed in detail view as in dashboard view
+  - *To ensure an accurate grade, your sidebar **must** be viewable when showing the details view in your recording.*
+- [x] **Each detail view of an item has a direct, unique URL link to that item’s detail view page**
+  - *To ensure an accurate grade, the URL/address bar of your web browser **must** be viewable in your recording.*
+- [x] **The app includes at least two unique charts developed using the fetched data that tell an interesting story**
+  - At least two charts should be incorporated into the dashboard view of the site
+  - Each chart should describe a different aspect of the dataset
+    - **Median Salary Distribution**: a histogram showing how many occupations fall in each $25k median-salary range
+    - **Top-Paying States**: a bar chart of the 10 states that are the top-paying state for the most occupations
+
 
 The following **optional** features are implemented:
 
-- [x] Multiple filters can be applied simultaneously
-- [x] Filters use different input types
-  - e.g., as a text input, a dropdown or radio selection, and/or a slider
-- [x] The user can enter specific bounds for filter values
+- [ ] The site’s customized dashboard contains more content that explains what is interesting about the data 
+  - e.g., an additional description, graph annotation, suggestion for which filters to use, or an additional page that explains more about the data
+- [ ] The site allows users to toggle between different data visualizations
+  - User should be able to use some mechanism to toggle between displaying and hiding visualizations 
 
+  
 The following **additional** features are implemented:
 
+* [x] Both charts update live based on the current search and filters
 * [x] Summary statistics recalculate live based on the current search and filters
 * [x] Search matches either the occupation name or the top-paying state
-* [x] Multi-select "Top-Paying State" filter using checkbox chips
-* [x] Two-handle slider sets both the lower and upper bound of median salary
-* [x] Each row links to the occupation's detail page on PayCrunch
-* [x] Scrollable table with a sticky header, plus a responsive layout for mobile
+* [x] Multiple filters at once: PayCrunch estimate dropdown, multi-select top-paying state checkboxes, and a two-handle median salary slider
+* [x] Detail page shows the full wage percentiles (10th to 90th), top-end details, the career step-up occupation, core tasks, and hot technologies
+* [x] Detail page handles loading, request errors, and missing fields without crashing
 * [x] Deployed to GitHub Pages with GitHub Actions: https://shawnhec.github.io/salary-explorer/
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-[![Video Walkthrough](https://i.ytimg.com/vi/cITtOLlCw7M/hqdefault.jpg)](https://youtu.be/cITtOLlCw7M)
+[![Video Walkthrough](https://i.ytimg.com/vi/Q7FiTJ1xBy0/hqdefault.jpg)](https://youtu.be/Q7FiTJ1xBy0)
 
-Video walkthrough hosted on YouTube: https://youtu.be/cITtOLlCw7M
+Video walkthrough hosted on YouTube: https://youtu.be/Q7FiTJ1xBy0
 
 ## Notes
 
 Describe any challenges encountered while building the app.
 
-- About 57 occupations have no top-paying state. At first, those rows were hidden even when no state was selected; I fixed the filter so that selecting no states shows everything.
-- The API field names (`estimated`, `top_end`, `top_end_state`) were not self-explanatory, so I read the API's field notes and renamed the columns and filter labels to make them clearer.
-- The first GitHub Pages deploy showed a blank page because Vite's `base` was set to my local folder name instead of the repo path. Setting `base: "./"` fixed it.
+- The detail page was blank on GitHub Pages at first. The app is served from `/salary-explorer/`, but `BrowserRouter` treated that whole path as the route, so nothing matched and the Not Found page showed. GitHub Pages also has no fallback for deep links, so opening a detail URL directly returns a 404. Switching to `HashRouter` fixed both, since the route is read from the part of the URL after `#`. Detail pages are reachable at `https://shawnhec.github.io/salary-explorer/#/jobs/pilot-salary`.
+- Not every occupation has every field (for example, `top_end.state` can be `null`), so the detail page uses optional chaining and checks before rendering optional sections.
+- The API only gives a top-paying state per occupation, not a median salary for each state, so a state-by-state salary map was not possible with this data.
 - Data source: [PayCrunch API](https://paycrunch.co) (CC BY 4.0). Figures come from the U.S. Bureau of Labor Statistics OEWS May 2025 release unless marked as a PayCrunch estimate.
 
 ## License
