@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 
 const Row = ({ job }) => {
   return (
@@ -10,9 +11,11 @@ const Row = ({ job }) => {
       <td>{job.top_end_state}</td>
       <td>{job.source}</td>
       <td>
-        <a href={job.url} target="_blank" rel="noopener noreferrer">
+        {/* <a href={job.url} target="_blank" rel="noopener noreferrer">
           View on PayCrunch
-        </a>
+        </a> */}
+
+        <Link to={`/jobs/${job.slug}`}>View Details</Link>
       </td>
     </tr>
   );
