@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Card from "../components/Card";
 import Row from "../components/Row";
 import Slider from "../components/Slider";
+import SalaryHistogram from "../components/SalaryHistogram";
+import StateBarChart from "../components/StateBarChart";
 
 function Home() {
   const [jobs, setJobs] = useState([]);
@@ -164,6 +166,11 @@ function Home() {
             </tbody>
           </table>
         </div>
+      </section>
+
+      <section className="dashboard-section">
+        <SalaryHistogram jobs={filteredJobs} />
+        <StateBarChart jobs={filteredJobs} />
       </section>
     </>
   );
